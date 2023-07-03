@@ -1,0 +1,108 @@
+.navbar-main {
+  background: var(--header, linear-gradient(270deg, #56A7F2 0%, rgba(255, 255, 255, 0.00) 100%), #2E52F8);
+  box-shadow: 1px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-logo {
+  height: auto;
+  display: flex;
+}
+
+/* //! Here begins the mess */
+:where(.css-dev-only-do-not-override-12upa3x).ant-menu-light .ant-menu-item-disabled,
+:where(.css-dev-only-do-not-override-12upa3x).ant-menu-light>.ant-menu .ant-menu-item-disabled,
+:where(.css-dev-only-do-not-override-12upa3x).ant-menu-light .ant-menu-submenu-disabled,
+:where(.css-dev-only-do-not-override-12upa3x).ant-menu-light>.ant-menu .ant-menu-submenu-disabled {
+  font-weight: 400 !important;
+  color: #FFF !important;
+} 
+
+.ant-menu-item-disabled {
+  font-weight: 400 !important;
+  color: #FFF !important;
+}
+
+.ant-menu>.ant-menu-item:hover,
+.ant-menu>.ant-menu-submenu:hover {
+  color: #FFF;
+  border-radius: 0.25rem !important;
+  opacity: 0.10000000149011612 !important;
+  background-color: #FFF !important;
+}
+.ant-menu-item-selected {
+  margin: .8em;
+  font-weight: 600 !important;
+  color: #FFF !important;
+}
+
+.menu-links {
+  margin-inline-start: 1.2rem;
+  color: #FFF !important;
+  text-align: center !important;
+  font-size: 0.875rem !important;
+  font-family: 'Segoe UI' !important;
+  font-style: normal !important;
+}
+/* //! Here ends the mess */
+
+.avatar-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-inline: 1rem;
+}
+
+.icons-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
+  margin-inline: 1.4rem;
+  color: #FFF;
+}
+
+.navbar-text {
+  font-family: 'Segoe UI';
+  font-style: normal;
+}
+
+.navbar-text.text-active {
+  font-weight: 600;
+}
+
+.navbar-text.text-inactive {
+  font-weight: 400;
+}
+
+@media (max-width:910px) {
+  .avatar-section {
+    display: none;
+  }
+}
+
+.navbar-logo-img {
+  float: right;
+}
+
+@media (max-width:670px) {
+  .menu-links {
+    display: none;
+  }
+
+  .navbar-logo-img-light {
+    display: none;
+  }
+}
+
+.menu-icon {
+  display: flex;
+}
+
+@media (min-width:670px) {
+  .menu-icon {
+    display: none;
+  }
+}
