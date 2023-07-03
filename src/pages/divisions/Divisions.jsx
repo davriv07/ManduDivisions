@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Breadcrumb, Button, Layout, Tabs, Tooltip, theme,
+  Breadcrumb, Button, Layout, Modal, Tabs, Tooltip, theme,
 } from 'antd';
 //* Css
 import './style.css';
@@ -67,18 +67,34 @@ const TableDivisionsComponent = React.lazy(() => import('../../components/tables
 
 //* Table actions like: Add, import, export
 function TableMainActions() {
+  //* Modal
+  const [open, setOpen] = React.useState(false);
+  const showModal = () => setOpen(true);
+  const handleCancel = () => setOpen(false);
+  const handleOk = () => setOpen(false);
+
   return (
-    <div className="content-buttons-sections">
-      <Tooltip title="Agregar">
-        <Button type="primary" icon={<PlusOutlined />} />
-      </Tooltip>
-      <Tooltip title="Importar">
-        <Button type="default" icon={<UploadOutlined />} />
-      </Tooltip>
-      <Tooltip title="Exportar">
-        <Button type="default" icon={<DownloadOutlined />} />
-      </Tooltip>
-    </div>
+    <>
+      <Modal
+        title="Agregar división"
+        open={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Este es un modal</p>
+      </Modal>
+      <div className="content-buttons-sections">
+        <Tooltip title="Agregar">
+          <Button type="primary" icon={<PlusOutlined onClick={showModal} />} />
+        </Tooltip>
+        <Tooltip title="Importar">
+          <Button type="default" icon={<UploadOutlined />} />
+        </Tooltip>
+        <Tooltip title="Exportar">
+          <Button type="default" icon={<DownloadOutlined />} />
+        </Tooltip>
+      </div>
+    </>
   );
 }
 

@@ -8,16 +8,18 @@ import { PlusCircleFilled } from '@ant-design/icons';
 import './style.css';
 import axios from 'axios';
 
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
-
 function TableDivisions() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedColumn, setSelectedColumn] = useState('');
+  const [search, setSearch] = useState('');
 
-  const fetchData = async (column, search, page, per_page) => {
-    axios.get(`${import.meta.env.VITE_API}/division`)
+  const fetchData = async (page = 1, perPage = 10) => {
+    const link = `${import.meta.env.VITE_API}/division?field=${selectedColumn}&search=${search}per_page=${perPage}${
+      page !== '' ? `&page=${page}` : ''
+    }`;
+    axios
+      .get(link)
       .then((res) => {
         setData(res.data.result);
         setLoading(false);
@@ -30,6 +32,24 @@ function TableDivisions() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  //* --------------------------- onChange sections
+  const onChangeTable = (pagination, filters, sorter, extra) => {
+    setLoading(true);
+    fetchData(pagination.current, pagination.pageSize);
+  };
+
+  const onChangeColumns = async (value) => {
+    await setSelectedColumn(value);
+    fetchData();
+  };
+
+  const onInput = async (e) => {
+    await setSearch(e.target.value);
+    fetchData();
+  };
+
+  //* --------------------------- ./onChange sections
 
   //* Helper for getting filters
   const getUniqueFilters = (dataD, dataIndex) => {
@@ -115,10 +135,10 @@ function TableDivisions() {
             <Select
               placeholder="Columnas"
               style={{ width: 120 }}
-              onChange={(e) => console.log(e)}
+              onChange={(e) => onChangeColumns(e)}
               options={selectColumnOptions}
             />
-            <Input placeholder="Buscar" style={{ minWidth: 300 }} />
+            <Input placeholder="Buscar" style={{ minWidth: 300 }} onInput={(e) => onInput(e)} />
           </Space>
         </Col>
       </Row>
@@ -127,7 +147,7 @@ function TableDivisions() {
         rowKey={(row) => row.id}
         columns={columns}
         dataSource={data.data}
-        onChange={onChange}
+        onChange={onChangeTable}
         pagination={{
           current: data.current_page,
           pageSize: data.per_page,
@@ -137,7 +157,10 @@ function TableDivisions() {
           showSizeChanger: true,
           pageSizeOptions: ['10', '20', '50', '100'],
         }}
-        expandable
+        scroll={{
+          x: 1500,
+          y: 500,
+        }}
         loading={loading}
       />
     </div>
